@@ -1,6 +1,6 @@
 @import-normalize;
 
-/* html {
+html {
   box-sizing: border-box;
   min-height: 100vh;
   overflow-x: hidden;
@@ -54,7 +54,8 @@ body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-} */
+}
+*/
 
 /* :root {
   max-width: 1400px;
@@ -66,9 +67,9 @@ body {
 /* td {
   display: table-cell;
   vertical-align: inherit;
-} */
+}
 
-html {
+/* html {
   box-sizing: border-box;
   width: 100vw;
   overflow-x: hidden;
@@ -94,7 +95,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
-}
+} */
 
 .icon-spin {
   margin-right: 10px;
@@ -110,22 +111,10 @@ img {
   }
 }
 
-.Container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-
-  padding-bottom: 25px;
+.trending__today {
+  margin-top: 20px;
 }
 
-.EnterYourRequest {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.Loader {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 25px;
-  margin-bottom: 25px;
+.trending__today--movie:not(:last-child) {
+  margin-bottom: 7px;
 }
