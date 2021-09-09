@@ -27,8 +27,10 @@ function fetchMovieById(filmId) {
 }
 
 function fetchMovieByActors(filmId) {
-  return fetch(`${BASE_URL}movie/${filmId}/credits?api_key=${API_KEY}`).then(
-    response => response.json(),
+  // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+
+  return fetch(`${BASE_URL}movie/${filmId}?api_key=${API_KEY}`).then(response =>
+    response.json(),
   );
 }
 
@@ -58,6 +60,7 @@ export {
   fetchMovieByActors,
   fetchMovieByReviews,
   fetchMovieGanres,
+  API_KEY,
 };
 
 // const BASE_URL = 'https://pixabay.com/api/';
