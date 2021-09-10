@@ -3,10 +3,6 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import PageHeading from '../components/PageHeading/PageHeading';
 import * as APP from '../services/apiFilms';
 
-// APP.fetchTrendingMovie().then(console.log);
-
-// APP.fetchMovieGanres().then(console.log);
-
 export default function HomePage() {
   const { url } = useRouteMatch();
   const [movie, setMovie] = useState(null);

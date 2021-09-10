@@ -14,43 +14,49 @@ function fetchTrendingMovie() {
     .then(response => response.results);
 }
 
-function fetchMovieByKeyword(keyword) {
-  return fetch(
-    `${BASE_URL}search/movie?api_key=${API_KEY}&query=${keyword}`,
-  ).then(response => response.json());
-}
-
 function fetchMovieById(filmId) {
-  return fetch(`${BASE_URL}movie/${filmId}?api_key=${API_KEY}`).then(response =>
-    response.json(),
-  );
-}
-
-function fetchMovieByActors(filmId) {
-  // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
-
-  return fetch(`${BASE_URL}movie/${filmId}?api_key=${API_KEY}`).then(response =>
-    response.json(),
-  );
-}
-
-function fetchMovieByReviews(filmId) {
-  return fetch(
-    `${BASE_URL}movie/${filmId}/reviews?api_key=${API_KEY}&page=1`,
-  ).then(response => response.json());
-}
-
-function fetchMovieGanres() {
-  return fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`)
-    .then(response => {
+  return fetch(`${BASE_URL}movie/${filmId}?api_key=${API_KEY}`).then(
+    response => {
       if (response.ok) {
         return response.json();
       }
       return Promise.reject(
-        new Error(`No genre are available on this request`),
+        new Error('No movie are available on this request'),
       );
-    })
-    .then(response => response.genres);
+    },
+  );
+}
+
+function fetchMovieByActors(filmId) {
+  return fetch(`${BASE_URL}movie/${filmId}/credits?api_key=${API_KEY}`).then(
+    response => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(
+        new Error('No movie are available on this request'),
+      );
+    },
+  );
+}
+
+function fetchMovieByReviews(filmId) {
+  return fetch(`${BASE_URL}movie/${filmId}/reviews?api_key=${API_KEY}`).then(
+    response => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(
+        new Error('No movie are available on this request'),
+      );
+    },
+  );
+}
+
+function fetchMovieByKeyword(keyword) {
+  return fetch(`${BASE_URL}search/movie?api_key=${API_KEY}&query=${keyword}`)
+    .then(response => response.json())
+    .then(resp => resp.results);
 }
 
 export {
@@ -59,7 +65,6 @@ export {
   fetchTrendingMovie,
   fetchMovieByActors,
   fetchMovieByReviews,
-  fetchMovieGanres,
   API_KEY,
 };
 

@@ -118,3 +118,53 @@ img {
 .trending__today--movie:not(:last-child) {
   margin-bottom: 7px;
 }
+
+.container__card {
+  display: flex;
+}
+
+.movie__description {
+  padding: 20px;
+}
+
+.movie__title {
+  margin-bottom: 25px;
+}
+
+.movie__item {
+  display: flex;
+}
+.movie__list:not(:last-child) {
+  margin-right: 10px;
+}
+
+.movie__img {
+  max-width: 240px;
+}
+
+.movie__info--item {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie__info--list {
+  margin-bottom: 10px;
+}
+
+.info__title {
+  margin: 20px 0;
+}
+
+.actor__img {
+  max-width: 100px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.actor__name {
+  margin-bottom: 15px;
+}
+
+.reviews__text {
+  margin: 15px 0;
+}
