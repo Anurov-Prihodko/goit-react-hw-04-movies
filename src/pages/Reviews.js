@@ -10,7 +10,7 @@ export default function Reviews() {
     APP.fetchMovieByReviews(movieId).then(setReviews);
   }, [movieId]);
 
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <>

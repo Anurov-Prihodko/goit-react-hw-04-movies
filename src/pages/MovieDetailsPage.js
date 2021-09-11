@@ -9,6 +9,7 @@ import {
 import * as APP from '../services/apiFilms';
 import Cast from './Cast';
 import Reviews from './Reviews';
+import ButtonBack from '../components/ButtonBack/ButtonBack';
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
@@ -19,10 +20,12 @@ export default function MovieDetailsPage() {
     APP.fetchMovieById(movieId).then(setMoviePage);
   }, [movieId]);
 
-  // console.log(moviePage);
+  // console.log(url);
 
   return (
     <>
+      <ButtonBack way={`/`} />
+
       {moviePage && (
         <>
           <div className="container__card">

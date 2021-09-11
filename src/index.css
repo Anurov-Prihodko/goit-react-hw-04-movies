@@ -168,3 +168,7 @@ img {
 .reviews__text {
   margin: 15px 0;
 }
+
+.input__search {
+  width: 300px;
+}
