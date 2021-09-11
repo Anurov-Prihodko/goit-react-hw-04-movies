@@ -17,7 +17,7 @@ export default function Reviews() {
       {reviews && reviews.results[0] ? (
         <ul>
           {reviews.results.map(result => (
-            <li>
+            <li key={result.id}>
               <h4>Autor: {result.author}</h4>
               <p className="info__title">{result.content}</p>
             </li>

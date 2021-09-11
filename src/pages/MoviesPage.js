@@ -22,19 +22,19 @@ export default function MoviesPage() {
   const location = useLocation();
   const history = useHistory();
 
-  // const query = new URLSearchParams(location.search).get('query');
+  const sortQuery = new URLSearchParams(location.search).get('query') ?? '';
 
-  // console.log(url);
+  // console.log(sortQuery);
 
   useEffect(() => {
-    if (!keyword) {
+    if (!sortQuery) {
       return;
     }
 
     function moviesApiService() {
       setStatus(Status.PENDING);
 
-      APP.fetchMovieByKeyword(keyword)
+      APP.fetchMovieByKeyword(sortQuery)
         .then(movie => {
           if (movie.length === 0) {
             setStatus(Status.REJECTED);
@@ -51,16 +51,14 @@ export default function MoviesPage() {
         .catch(
           () => setStatus(Status.REJECTED),
           // toast.error('Something went wrong! Please try again!'),
-        )
-        .finally(() => setStatus(Status.IDLE));
+        );
     }
 
     moviesApiService();
-  }, [keyword]);
+  }, [sortQuery]);
 
   const handleFormSubmit = keyword => {
     setKeyword(keyword);
-    setStatus(Status.PENDING);
 
     history.push({
       ...location,
