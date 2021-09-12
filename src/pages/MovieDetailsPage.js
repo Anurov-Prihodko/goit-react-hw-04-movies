@@ -5,61 +5,78 @@ import {
   useRouteMatch,
   Route,
   Switch,
+  useLocation,
+  useHistory,
 } from 'react-router-dom';
 import * as APP from '../services/apiFilms';
 import Cast from './Cast';
 import Reviews from './Reviews';
 import ButtonBack from '../components/ButtonBack/ButtonBack';
+import MovieCard from '../components/MovieCard/MovieCard';
+import Spinner from '../components/Spinner/Spinner';
+
+const Status = {
+  IDLE: 'idle',
+  PENDING: 'pending',
+  RESOLVED: 'resolved',
+  REJECTED: 'rejected',
+};
 
 export default function MovieDetailsPage() {
+  const location = useLocation();
+  const history = useHistory();
   const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [moviePage, setMoviePage] = useState(null);
+  const [status, setStatus] = useState(Status.IDLE);
+
+  // console.log(location);
 
   useEffect(() => {
-    APP.fetchMovieById(movieId).then(setMoviePage);
+    setStatus(Status.PENDING);
+    APP.fetchMovieById(movieId)
+      .then(setMoviePage)
+      .catch(() => setStatus(Status.REJECTED))
+      .finally(() => setStatus(Status.IDLE));
   }, [movieId]);
 
   // console.log(url);
 
+  const onGoBack = () => {
+    setStatus(Status.PENDING);
+    history.push(location?.state?.from.location ?? '/');
+  };
+
   return (
     <>
-      <ButtonBack way={`/`} />
+      <ButtonBack onClick={onGoBack} />
+
+      {status === Status.PENDING && <Spinner />}
 
       {moviePage && (
         <>
-          <div className="container__card">
-            <div>
-              <img
-                className="movie__img"
-                src={`https://image.tmdb.org/t/p/w300${moviePage.poster_path}?api_key=${APP.API_KEY}`}
-                alt={moviePage.original_title}
-              />
-            </div>
-            <div className="movie__description">
-              <h2 className="movie__title">{moviePage.original_title}</h2>
-              <p className="movie__title">
-                User Score: {moviePage.vote_average}
-              </p>
-              <h3 className="movie__title">Overview:</h3>
-              <p className="movie__title">{moviePage.overview}</p>
-              <h3 className="movie__title">Genres:</h3>
-              <ul className="movie__item">
-                {moviePage.genres.map(genre => (
-                  <li key={genre.id} className="movie__list">
-                    {genre.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <MovieCard movies={moviePage} />
+
           <hr />
           <p className="info__title">Additional information</p>
           <ul className="movie__info--item">
-            <Link className="movie__info--list" to={`${url}/cast`}>
+            <Link
+              className="movie__info--list"
+              to={{
+                pathname: `${url}/cast`,
+                state: { from: location?.state?.from ?? '/' },
+              }}
+            >
               😎 Cast
             </Link>
-            <Link className="movie__info--list" to={`${url}/reviews`}>
+
+            <Link
+              className="movie__info--list"
+              to={{
+                pathname: `${url}/reviews`,
+                state: { from: location?.state?.from ?? '/' },
+              }}
+            >
               ✍ Reviews
             </Link>
           </ul>

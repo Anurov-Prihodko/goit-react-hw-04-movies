@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import * as APP from '../services/apiFilms';
 import Searchbar from '../components/Searchbar/Searchbar';
-// import MovieDetailsPage from './MovieDetailsPage';
+import Spinner from '../components/Spinner/Spinner';
 
 const Status = {
   IDLE: 'idle',
@@ -48,10 +48,7 @@ export default function MoviesPage() {
           setStatus(Status.RESOLVED);
           toast.success('Congratulations! You found your movie.');
         })
-        .catch(
-          () => setStatus(Status.REJECTED),
-          // toast.error('Something went wrong! Please try again!'),
-        );
+        .catch(() => setStatus(Status.REJECTED));
     }
 
     moviesApiService();
@@ -70,11 +67,22 @@ export default function MoviesPage() {
     <>
       <Searchbar onSubmit={handleFormSubmit} />
 
+      {status === Status.PENDING && <Spinner />}
+
       <ul>
         {movies &&
           movies.map(movie => (
             <li key={movie.id} className="trending__today--movie">
-              <Link to={`${url}/${movie.id}`}>{movie.title}</Link>
+              <Link
+                to={{
+                  pathname: `${url}/${movie.id}`,
+                  state: {
+                    from: { location },
+                  },
+                }}
+              >
+                {movie.title}
+              </Link>
             </li>
           ))}
       </ul>

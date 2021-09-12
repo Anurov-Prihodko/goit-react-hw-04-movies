@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-export default function ButtonBack({ way }) {
+export default function ButtonBack({ onClick }) {
   return (
-    <button>
-      <Link to={way}>⬅ Go back</Link>
+    <button type="button" onClick={onClick}>
+      ⬅ Go back
     </button>
   );
 }

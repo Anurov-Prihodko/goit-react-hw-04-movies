@@ -1,3 +1,3 @@
 export default function PageHeading({ title }) {
-  return <h2>{title}</h2>;
+  return <h2 className="trending__today">{title}</h2>;
 }
