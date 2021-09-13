@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
 
 export default function Searchbar({ onSubmit }) {
   const [requestName, setRequestName] = useState('');
@@ -37,3 +38,7 @@ export default function Searchbar({ onSubmit }) {
     </form>
   );
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

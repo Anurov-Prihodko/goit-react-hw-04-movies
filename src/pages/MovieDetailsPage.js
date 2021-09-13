@@ -47,9 +47,18 @@ export default function MovieDetailsPage() {
     history.push(location?.state?.from.location ?? '/');
   };
 
+  // const onGoBackOld = () => {
+  //   if (location && location.state && location.state.from.location) {
+  //     history.push(location.state.from.location);
+  //     return;
+  //   }
+
+  //   history.push('/');
+  // };
+
   return (
     <>
-      <ButtonBack onClick={onGoBack} />
+      <ButtonBack onClick={onGoBack}>{'⬅ Go back'}</ButtonBack>
 
       {status === Status.PENDING && <Spinner />}
 
@@ -64,7 +73,10 @@ export default function MovieDetailsPage() {
               className="movie__info--list"
               to={{
                 pathname: `${url}/cast`,
-                state: { from: location?.state?.from ?? '/' },
+                state: {
+                  from: location?.state?.from ?? '/',
+                  label: 'Back to the selected movie',
+                },
               }}
             >
               😎 Cast
@@ -74,7 +86,9 @@ export default function MovieDetailsPage() {
               className="movie__info--list"
               to={{
                 pathname: `${url}/reviews`,
-                state: { from: location?.state?.from ?? '/' },
+                state: {
+                  from: location?.state?.from ?? '/',
+                },
               }}
             >
               ✍ Reviews

@@ -1,4 +1,5 @@
 import * as APP from '../../services/apiFilms';
+import PropTypes from 'prop-types';
 
 export default function MovieCard({ movies }) {
   return (
@@ -27,3 +28,7 @@ export default function MovieCard({ movies }) {
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  movies: PropTypes.object.isRequired,
+};
